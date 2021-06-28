@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { StyleSheet, StatusBar, Text, View, KeyboardAvoidingView } from 'react-native'; // KeyboardAvoidingView justar automaticamente sua altura, posição ou preenchimento inferior com base na altura do teclado.
 import { Button, Input, Image } from 'react-native-elements';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
     
     const [email,setEmail] = useState('');
 
@@ -29,14 +29,14 @@ const LoginScreen = () => {
              <View style={styles.inputContainer}>
 
                  <Input 
-                 placeholder="Email" 
+                 placeholder="E-mail" 
                  autoFocus 
                  type="email" 
                  value={email}
                  onChangeText={(text) => setEmail(text)}/>
 
                  <Input 
-                 placeholder="Password" 
+                 placeholder="Senha" 
                  secureTextEntry 
                  type="password"
                  value={password}
@@ -44,8 +44,15 @@ const LoginScreen = () => {
 
             </View>
 
-            <Button containerStyle={styles.button} onPress={SignIn} title='Login'/>
-            <Button containerStyle={styles.button} type="outline" title='Register'/>
+            <Button containerStyle={styles.button} onPress={SignIn} title='Acessar'/>
+            
+            <Button 
+            onPress={() => navigation.navigate("Register")} 
+            containerStyle={styles.button} 
+            type="outline" 
+            title='Register'
+            />
+
             <View style={{height:100}}/>
 
         </KeyboardAvoidingView>
@@ -67,6 +74,6 @@ const styles = StyleSheet.create({
     },
     button:{
         width: 300,
-        marginTop:10,
+        marginTop:15,
     },
 });
