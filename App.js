@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './Screens/LoginScreen';
 import RegisterScreen from './Screens/RegisterScreen';
+import HomeScreen from './Screens/HomeScreen';
 import { createStackNavigator } from "@react-navigation/stack" //Fornece uma maneira de seu aplicativo fazer a transição entre as telas, onde cada nova tela é colocada no topo de uma pilha.
 
 
@@ -22,6 +23,7 @@ export default function App() {
       <Stack.Navigator screenOptions={globalScreenOptions}>
         <Stack.Screen name ="Login" component={LoginScreen}/>
         <Stack.Screen name ="Register" component={RegisterScreen}/>
+        <Stack.Screen name ="Home" component={HomeScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

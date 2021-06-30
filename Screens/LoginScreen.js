@@ -1,7 +1,8 @@
 import { styleSheets } from 'min-document';
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { StyleSheet, StatusBar, Text, View, KeyboardAvoidingView } from 'react-native'; // KeyboardAvoidingView justar automaticamente sua altura, posição ou preenchimento inferior com base na altura do teclado.
 import { Button, Input, Image } from 'react-native-elements';
+import {auth} from "../firebase"
 
 const LoginScreen = ({ navigation }) => {
     
@@ -9,9 +10,24 @@ const LoginScreen = ({ navigation }) => {
 
     const [password,setPassword] = useState('');
 
-    const SignIn = () => {
+    useEffect(() =>{
+       const unsubscribe = auth.onAuthStateChanged((authUser) => {
+           console.log(authUser)
+            if(authUser){
+                navigation.replace('Home');
+            }
+        });
 
-    }
+        return unsubscribe;
+
+    }, []);
+
+    const SignIn = () => { //Const para logar na conta do usuario
+        auth
+        .signInWithEmailAndPassword(email,password)
+        .catch(error => alert(error));
+
+    };
 
     return (
         <KeyboardAvoidingView behavior='padding'  style={styles.container}>
@@ -40,7 +56,8 @@ const LoginScreen = ({ navigation }) => {
                  secureTextEntry 
                  type="password"
                  value={password}
-                 onChangeText={(text) => setPassword(text)}/>
+                 onChangeText={(text) => setPassword(text)}
+                 onSubmitEditing={SignIn}/>
 
             </View>
 

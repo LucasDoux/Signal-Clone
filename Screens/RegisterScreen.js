@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { StyleSheet, View, KeyboardAvoidingView, } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
+import { auth } from '../firebase';
 
 const RegisterScreen = ({ navigation }) => {
 
@@ -13,14 +14,23 @@ const RegisterScreen = ({ navigation }) => {
     useLayoutEffect(() => {
 
         navigation.setOptions({
-            headerBackTitle: "Back to login", //POSSIVEL ERRO(NÃO APARECE NA TOPBAR O NOME DA TELA ANTERIOR PARA VOLTAR)
+            headerBackTitle: " Login", 
         });
 
     }, [navigation]);
 
 
     const register = () => {
+        auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(authUser => {
+            authUser.user.updateProfile({
+                displayName:name,
+                photoURL: imageUrl || "https://image.flaticon.com/icons/png/512/147/147144.png"
+            });
 
+        })
+        .catch((error) => alert(error.message));
     }
 
     return (
@@ -97,7 +107,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         padding: 10,
-        backgroundColor: "White",
+        backgroundColor:"white",
     },
 
     InputContainer: {
