@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
             headerLeft: () => (
                 <View style={{ marginLeft: 20 }}>
 
-                    <TouchableOpacity onPress={signOutUser} activeOpacity={0.5}>
+                    <TouchableOpacity >
 
                         <Avatar rounded source={{ uri: auth?.currentUser?.photoURL }}></Avatar>
 
@@ -65,25 +65,39 @@ const HomeScreen = ({ navigation }) => {
 
                 }}>
 
-                    <TouchableOpacity activeOpacity={0.5}>
-
-                        <AntDesign name='camerao' size={24} color="black" />
-
-                    </TouchableOpacity>
-
-
-
-                    <TouchableOpacity onPress={() => navigation.navigate('AddChat')} activeOpacity={0.5}>
+                     <TouchableOpacity onPress={() => navigation.navigate('AddChat')} activeOpacity={0.5}>
 
                         <SimpleLineIcons name='pencil' size={24} color="black" />
 
                     </TouchableOpacity>
+
+
+                    <TouchableOpacity onPress={signOutUser} activeOpacity={0.5}>
+
+                        <SimpleLineIcons name='logout' size={24} color="black" />
+
+                    </TouchableOpacity>
+
+
+
+                    
+
+
 
                 </View>
             )
 
         });
     }, [navigation]);
+
+
+
+    const enterChat = (id, chatName) => {
+        navigation.navigate("Chat", {
+            id,
+            chatName,
+        });
+    };
 
 
 
@@ -95,7 +109,12 @@ const HomeScreen = ({ navigation }) => {
 
                 {chats.map(({id, data: {chatName}}) =>( 
 
-                    <CustomListItem key={id} id={id} chatName={chatName} />
+                    <CustomListItem 
+                    key={id} 
+                    id={id} 
+                    chatName={chatName} 
+                    enterChat={enterChat}
+                    />
 
                 ))}
 
