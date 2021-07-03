@@ -42,7 +42,7 @@ const AddChatScreen = ({navigation}) => {
         }
         />
 
-        <Button style={styles.button} onPress={createChat} title="Criar Chat"></Button>
+        <Button disabled={!input} style={styles.button} onPress={createChat} title="Criar Chat"></Button>
         
     </View>
   ) ;

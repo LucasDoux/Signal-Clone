@@ -8,7 +8,7 @@ import { db, auth } from '../firebase';
 import firebase from "firebase/app";
 //import * as firebase from "firebase" //com essa importação o FieldValue da constante sendMessage não estava funcionando
 
-
+//"https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
 
 const ChatScreen = ({navigation, route}) => {
 
@@ -26,11 +26,12 @@ const ChatScreen = ({navigation, route}) => {
                     flexDirection: "row",
                     alignItems:"center",
                     }}>
-                    <Avatar rounded 
-                    source={{
-                    uri:
-                    "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                    }}
+                    <Avatar 
+                        rounded 
+                        source={{
+                        uri: messages[0]?.data.photoURL,
+                        
+                        }}
                     />
 
                     <Text style={{color:"white",marginLeft:10, fontWeight:"700"}}>
@@ -74,7 +75,7 @@ const ChatScreen = ({navigation, route}) => {
 
 
         })
-    }, [navigation]);
+    }, [navigation, messages]);
 
 
     const sendMessage = () => {
@@ -152,7 +153,7 @@ const ChatScreen = ({navigation, route}) => {
 
                             ) : (
 
-                                <View style={styles.sender}>
+                                <View key={id} style={styles.sender}>
                                     <Avatar
                                     position="absolute"
                                     containerStyle={{
