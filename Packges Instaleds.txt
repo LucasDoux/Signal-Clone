@@ -4,3 +4,22 @@ expo install react-native-gesture-handler react-native-reanimated react-native-s
 yarn add @react-navigation/stack
 yarn add @react-navigation/native
 expo install firebase //biblioteca firebase
+
+para definir um hosting do firebase:
+	(os comandos a seguir abaixo so funcionam fora do projeto, depois coloque-os na pasta do projeto)
+
+ 1º -firebase init(voce deve estar logado na conta firebase com '-firebase login')
+ 2º selecione o hosting, config e deploy 
+ 3º selecione o projeto feito no firebase
+ 4º ao perguntar o que vc quer usar no diretorio publico, responde: web-build
+ 5º ao perguntar se voce quer configurar a pagina com url vc digita: Y
+ 6º ao perguntar sobre deploy automatico no git hub vc digita: N
+ 7º por fim de um -firebase deploy para usar o hosting criado como armazenamento do projeto
+
+
+
+Para publicar como projeto expo(sempre manter a versão do expo atualizada):
+-expo publish
+-expo build:web(para buildar para a web, tendo a pasta web-build dentro do projeto)
+
+
