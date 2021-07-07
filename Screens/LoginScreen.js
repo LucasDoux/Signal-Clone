@@ -1,17 +1,33 @@
 import { styleSheets } from 'min-document';
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { StyleSheet, StatusBar, Text, View, KeyboardAvoidingView } from 'react-native'; // KeyboardAvoidingView justar automaticamente sua altura, posição ou preenchimento inferior com base na altura do teclado.
 import { Button, Input, Image } from 'react-native-elements';
+import {auth} from "../firebase"
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
     
     const [email,setEmail] = useState('');
 
     const [password,setPassword] = useState('');
 
-    const SignIn = () => {
+    useEffect(() =>{
+       const unsubscribe = auth.onAuthStateChanged((authUser) => {
+           console.log(authUser)
+            if(authUser){
+                navigation.replace('Home');
+            }
+        });
 
-    }
+        return unsubscribe;
+
+    }, []);
+
+    const SignIn = () => { //Const para logar na conta do usuario
+        auth
+        .signInWithEmailAndPassword(email,password)
+        .catch(error => alert(error));
+
+    };
 
     return (
         <KeyboardAvoidingView behavior='padding'  style={styles.container}>
@@ -29,23 +45,31 @@ const LoginScreen = () => {
              <View style={styles.inputContainer}>
 
                  <Input 
-                 placeholder="Email" 
+                 placeholder="E-mail" 
                  autoFocus 
                  type="email" 
                  value={email}
                  onChangeText={(text) => setEmail(text)}/>
 
                  <Input 
-                 placeholder="Password" 
+                 placeholder="Senha" 
                  secureTextEntry 
                  type="password"
                  value={password}
-                 onChangeText={(text) => setPassword(text)}/>
+                 onChangeText={(text) => setPassword(text)}
+                 onSubmitEditing={SignIn}/>
 
             </View>
 
-            <Button containerStyle={styles.button} onPress={SignIn} title='Login'/>
-            <Button containerStyle={styles.button} type="outline" title='Register'/>
+            <Button containerStyle={styles.button} onPress={SignIn} title='Acessar'/>
+            
+            <Button 
+            onPress={() => navigation.navigate("Register")} 
+            containerStyle={styles.button} 
+            type="outline" 
+            title='Register'
+            />
+
             <View style={{height:100}}/>
 
         </KeyboardAvoidingView>
@@ -67,6 +91,6 @@ const styles = StyleSheet.create({
     },
     button:{
         width: 300,
-        marginTop:10,
+        marginTop:15,
     },
 });
